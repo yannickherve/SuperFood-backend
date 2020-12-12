@@ -32,7 +32,6 @@ const restaurantController = {
         }
     },
     fetchRestaurants: async (req, res) => {
-        const match = {}
         const sort = {}
         let perPage = parseInt(req.query.limit) || 10;
         let page = parseInt(req.query.page) || 1;
