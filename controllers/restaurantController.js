@@ -36,9 +36,10 @@ const restaurantController = {
         const sort = {}
         let perPage = parseInt(req.query.limit) || 10;
         let page = parseInt(req.query.page) || 1;
+        let queryName = ''
     
         if (req.query.name) {
-            match.name = req.query.name
+            queryName = req.query.name
         }
     
         if (req.query.sortBy) {
@@ -47,10 +48,10 @@ const restaurantController = {
         }
     
         try {
-            const numOfRestaurants = await Restaurant.countDocuments()
+            const numOfRestaurants = await Restaurant.countDocuments({name: {$regex: queryName, $options: 'i'}})
             const pages = Math.ceil(numOfRestaurants / perPage);
             
-            const restaurants = await Restaurant.find()
+            const restaurants = await Restaurant.find({name: {$regex: queryName, $options: 'i'}})
                 .populate('user', 'name')
                 .populate('address')
                 .limit(perPage)
