@@ -77,8 +77,7 @@ const userSchema = new mongoose.Schema({
         }
     }],
     avatar: {
-        type: Buffer,
-        contentType: String
+        type: Buffer
     },
     address: {
         type: String,

@@ -1,6 +1,5 @@
 const User = require('../models/user')
-//const multer = require('multer')
-//const sharp = require('sharp')
+const sharp = require('sharp')
 
 const authController = {
     signup: async (req, res) => {
@@ -85,12 +84,32 @@ const authController = {
             res.status(500).send()
         }
     },
-    //uploadAvatar: async (req, res) => {
-    //    const buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
-    //    req.user.avatar = buffer
-    //    await req.user.save()
-    //    res.send()
-    //},
+    CreateUserAvatar: async (req, res) => {
+        try {
+            req.user.avatar = await sharp(req.file.buffer).resize({width: 250, height: 250}).png().toBuffer()
+            await req.user.save()
+            res.send({message: 'Avatar Uploaded Successfully!'})
+        } catch (error) {
+            res.status(400).send({ error: error.message })
+        }
+    },
+    getUserAvatar: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.id)
+            if (!user || !user.avatar) {
+                res.status(404).send({message: 'User Avatar Not exist!'})
+            }
+            res.set('Content-Type', 'image/png')
+            res.send(user.avatar)
+        } catch (e) {
+            res.status(404).send()
+        }
+    },
+    deleteUserAvatar: async (req, res) => {
+        req.user.avatar = undefined
+        await req.user.save()
+        res.send({ message: 'Avatar Deleted Successfully!'})
+    }
 }
 
 module.exports = authController
