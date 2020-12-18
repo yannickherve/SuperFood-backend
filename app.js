@@ -28,6 +28,7 @@ app.use(cors({
 const productRouter = require('./routes/product');
 const userRouter = require('./routes/user');
 
+
 /* use routes*/
 app.use(userRouter)
 app.use(productRouter)

@@ -1,6 +1,6 @@
 const userPrivilege = {
     isModerator: async (req, res, next) => {
-        if (req.user.role === 0) {
+        if (req.user.role === 'user') {
             return res
                 .status(403)
                 .send({error: 'User not Authorised. Require Moderator Role!'});
@@ -8,7 +8,7 @@ const userPrivilege = {
         next();
     },
     isAdmin: async (req, res, next) => {
-        if (req.user.role === 0 || req.user.role === 1) {
+        if (req.user.role === 'user' || req.user.role === 'moderator') {
             return res
                 .status(403)
                 .send({error: 'User not Authorised. Require Admin Role!'});

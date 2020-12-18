@@ -56,15 +56,10 @@ const userSchema = new mongoose.Schema({
         }
     },
     role: {
-        type: Number,
-        default: 0, // 0:user, 1:moderator 2: admin
-        enum: [0, 1, 2],
+        type: String,
+        default: 'user', // 0:user, 1:moderator 2: admin
+        enum: ['user', 'moderator', 'admin'],
         required: true,
-        validate(value) {
-            if (value < 0) {
-                throw new Error('Role not valid')
-            }
-        }
     },
     last_seen: {
         type: Date,
