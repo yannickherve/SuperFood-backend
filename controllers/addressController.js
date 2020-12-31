@@ -74,6 +74,19 @@ const addressController = {
             res.status(500).send(e)
         }
     },
+    deleteAddress: async (req, res) => {
+        const _id = req.params.id
+        try {
+            const address = await Address.findOneAndDelete({ _id}).populate('user', 'name email phone')
+            
+            if (!address) {
+                res.status(404).send({ message: 'Address Not Found!' })
+            }
+            res.status(200).send(address)
+        } catch (e) {
+            res.status(500).send(e)
+        }
+    }
 }
 
 module.exports = addressController;
