@@ -38,6 +38,29 @@ const addressController = {
             res.status(500).send(e)
         }
     },
+    updateAddress: async (req, res) => {
+        const _id = req.params.id
+        const updatesData = {
+            ...req.body
+        };
+        const valid = Object.keys(updatesData)
+        const allowedUpdates = ['full_name','phone', 'city', 'postcode', 'address1', 'address2', 'professional', 'civility', 'company', 'country']
+        const isValidOperation = valid.every((update) => allowedUpdates.includes(update))
+        
+        if (!isValidOperation) {
+            return res.status(400).send({ error: 'Invalid updates!' })
+        }
+        try {
+            const address = await Address.findOneAndUpdate({ _id }, { $set: updatesData})
+            
+            if (!address) {
+                res.status(404).send({ message: 'Address Not Found!'})
+            }
+            res.status(200).send({ message: 'Updated Address Successfully!'})
+        } catch (e) {
+            res.status(500).send(e)
+        }
+    },
 }
 
 module.exports = addressController;

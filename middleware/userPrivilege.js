@@ -3,7 +3,7 @@ const userPrivilege = {
         if (req.user.role === 'user') {
             return res
                 .status(403)
-                .send({error: 'User not Authorised. Require Moderator Role!'});
+                .send({error: 'User not Authorised. Require Moderator or admin Role!'});
         }
         next();
     },

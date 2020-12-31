@@ -36,7 +36,7 @@ const orderController = {
             
             const orders = await Order.find({user: req.user._id}).populate('user', 'name email phone')
                 .populate('address', 'address1 phone civility full_name city postcode company')
-                .populate({path: 'products'/*, populate: {path: 'product'}*/})
+                .populate('cart', 'name')
                 .limit(perPage)
                 .sort(sort)
                 .skip((perPage * page) - perPage)

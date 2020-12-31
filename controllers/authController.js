@@ -40,7 +40,7 @@ const authController = {
     },
     editMe: async (req, res) => {
         const updates = Object.keys(req.body)
-        const allowedUpdates = ['name', 'email', 'password', 'age', 'phone', 'newsletter']
+        const allowedUpdates = ['name', 'email', 'password', 'age', 'phone', 'newsletter', 'address']
         const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
         
         if (!isValidOperation) {
