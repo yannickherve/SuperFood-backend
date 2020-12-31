@@ -14,7 +14,7 @@ const addressController = {
             res.status(500).send(e)
         }
     },
-    getAddress: async (req, res) => {
+    getAddresses: async (req, res) => {
         const sort = {}
         let perPage = parseInt(req.query.limit) || 10;
         let page = parseInt(req.query.page) || 1;
@@ -57,6 +57,19 @@ const addressController = {
                 res.status(404).send({ message: 'Address Not Found!'})
             }
             res.status(200).send({ message: 'Updated Address Successfully!'})
+        } catch (e) {
+            res.status(500).send(e)
+        }
+    },
+    getAddress: async (req, res) => {
+        const _id = req.params.id
+        try {
+            const address = await Address.findOne({_id, user: req.user._id}).populate('user', 'name email phone')
+            
+            if (!address) {
+                res.status(404).send({ message: 'Address Not Found!' })
+            }
+            res.status(200).send(address)
         } catch (e) {
             res.status(500).send(e)
         }
