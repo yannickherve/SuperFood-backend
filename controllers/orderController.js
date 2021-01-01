@@ -1,17 +1,18 @@
 const Order = require('../models/order')
 const Cart = require('../models/cart')
+const Address = require('../models/address')
 
 const orderController = {
     createOrder: async (req, res) => {
-        //const addresses = await Address.find({user: req.user._id})
-        //address id from user request input
+        const retrieveAddress = await Address.find({ _id: req.body.address })
         const address = req.body.address
         const cart = await Cart.find({user: req.user._id}).populate('product')
         const order = await new Order({
             ...req.body,
             user: req.user,
             address: address,
-            products: cart
+            products: cart,
+            addressInfos: retrieveAddress[0]
         })
         try {
             await order.save()
@@ -35,7 +36,7 @@ const orderController = {
             const pages = Math.ceil(numOfOrders / perPage);
             
             const orders = await Order.find({user: req.user._id}).populate('user', 'name email phone')
-                .populate('address', 'address1 phone civility full_name city postcode company')
+                .populate('address', '_id')
                 .populate('cart', 'name')
                 .limit(perPage)
                 .sort(sort)
