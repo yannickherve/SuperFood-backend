@@ -14,15 +14,18 @@ const bodyParser = require ('body-parser')
 /*initialize app*/
 const app = express();
 
-/*initialize parse application/json*/
-app.use(express.json());
-
 /* CORS */
 app.use(cors({
     origin: '*',
+    //AllowOrigin: 'http://localhost:4200',
     methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'POST'],
     allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
 }));
+
+/*initialize parse application/json*/
+app.use(express.json());
+
+
 
 /*import routes*/
 const productRouter = require('./routes/product');

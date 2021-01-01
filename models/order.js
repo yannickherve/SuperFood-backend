@@ -46,7 +46,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         maxlength: 40
     },
-    deliveryName: String // Nom livreur
+    deliveryName: String, // Nom livreur,
+    addressInfos: { // Store address infos
+        type: Object
+    },
 }, {
     timestamps: true
 })
