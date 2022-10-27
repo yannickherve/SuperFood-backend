@@ -6,6 +6,7 @@ const Cart = require('./cart')
 const Order = require('./order')
 const Address = require('./address')
 const Restaurant = require('./restaurant')
+require("dotenv").config()
 
 userSchema.virtual('addresses', {
     ref: 'Address',

@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const sharp = require('sharp')
+require("dotenv").config()
 
 const authController = {
     signup: async (req, res) => {
@@ -26,6 +27,7 @@ const authController = {
         try {
             const user = await User.findByCredentials(req.body.email, req.body.password)
             const token = await user.generateAuthToken()
+            console.log(token);
             res.send({ user, token })
         } catch (e) {
             res.status(400).send({ message: 'login failed. Email or password is incorrect!'})
