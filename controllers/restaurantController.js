@@ -1,5 +1,5 @@
 const Restaurant = require('../models/restaurant')
-// const sharp = require("sharp");
+const sharp = require("sharp");
 // const baseImgUrl = 'http://localhost:4000/images/restaurants/'
 const baseImgUrl = 'https://apifood.geomaniadevs.com/images/restaurants/'
 
