@@ -2,7 +2,8 @@ const Product = require('../models/product')
 const Category = require('../models/category')
 const sharp = require('sharp')
 const fs = require('fs')
-const baseImgUrl = 'http://localhost:4000/images/products/'
+// const baseImgUrl = 'http://localhost:4000/images/products/'
+const baseImgUrl = 'https://apifood.geomaniadevs.com/images/products/'
 
 const productController = {
     createProduct: async (req, res) => {
